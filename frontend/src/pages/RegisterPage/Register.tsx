@@ -30,7 +30,7 @@ const Register: React.FC = () => {
       }
     } catch (error) {
       if (error instanceof Error) {
-        console.error('Error Message:', error.message)
+        console.error('오류 메시지:', error.message)
       }
     }
   }
@@ -44,7 +44,7 @@ const Register: React.FC = () => {
       }
     } catch (error) {
       console.error(error)
-      alert('Failed to verify code.')
+      alert('인증번호 확인에 실패했습니다.')
     }
   }
 
@@ -71,18 +71,18 @@ const Register: React.FC = () => {
         tagsArray,
       )
       if (response) {
-        alert('Sign-up successful!')
+        alert('회원가입이 성공적으로 완료되었습니다!')
       }
     } catch (error) {
       console.error(error)
-      alert('Sign-up failed.')
+      alert('회원가입에 실패했습니다.')
     }
   }
 
   return (
     <L.Form onSubmit={handleSubmit}>
       <L.InputContainer>
-        <L.Label>Email:</L.Label>
+        <L.Label>이메일:</L.Label>
         <L.Input
           type='email'
           value={email}
@@ -90,12 +90,12 @@ const Register: React.FC = () => {
           required
         />
         <L.Button type='button' onClick={handleEmailVerificationSend}>
-          Send Verification Code
+          인증번호 전송
         </L.Button>
       </L.InputContainer>
 
       <L.InputContainer>
-        <L.Label>Verification Code:</L.Label>
+        <L.Label>인증번호:</L.Label>
         <L.Input
           type='string'
           value={verificationCode}
@@ -103,12 +103,12 @@ const Register: React.FC = () => {
         />
 
         <L.Button type='button' onClick={handleVerifyCode}>
-          Verify Code
+          인증번호 확인
         </L.Button>
       </L.InputContainer>
 
       <L.InputContainer>
-        <L.Label>Password:</L.Label>
+        <L.Label>비밀번호:</L.Label>
         <L.Input
           type='password'
           value={password}
@@ -118,7 +118,7 @@ const Register: React.FC = () => {
       </L.InputContainer>
 
       <L.InputContainer>
-        <L.Label>Nickname:</L.Label>
+        <L.Label>닉네임:</L.Label>
         <L.Input
           type='text'
           value={nickname}
@@ -128,7 +128,7 @@ const Register: React.FC = () => {
       </L.InputContainer>
 
       <L.InputContainer>
-        <L.Label>University:</L.Label>
+        <L.Label>대학교:</L.Label>
         <L.Input
           type='text'
           value={university}
@@ -138,7 +138,7 @@ const Register: React.FC = () => {
       </L.InputContainer>
 
       <L.InputContainer>
-        <L.Label>Major:</L.Label>
+        <L.Label>전공:</L.Label>
         <L.Input
           type='text'
           value={major}
@@ -148,7 +148,7 @@ const Register: React.FC = () => {
       </L.InputContainer>
 
       <L.InputContainer>
-        <L.Label>Second Major (optional):</L.Label>
+        <L.Label>복수전공 (선택):</L.Label>
         <L.Input
           type='text'
           value={secondMajor}
@@ -157,7 +157,7 @@ const Register: React.FC = () => {
       </L.InputContainer>
 
       <L.InputContainer>
-        <L.Label>Period (Semester):</L.Label>
+        <L.Label>학기:</L.Label>
         <L.Input
           type='number'
           value={period}
@@ -167,19 +167,19 @@ const Register: React.FC = () => {
       </L.InputContainer>
 
       <L.InputContainer>
-        <L.Label>Semester Off:</L.Label>
+        <L.Label>휴학 여부:</L.Label>
         <L.Select
           value={semesterOff ? 'yes' : 'no'}
           onChange={e => setSemesterOff(e.target.value === 'yes')}
           required
         >
-          <option value='no'>No</option>
-          <option value='yes'>Yes</option>
+          <option value='no'>아니요</option>
+          <option value='yes'>예</option>
         </L.Select>
       </L.InputContainer>
 
       <L.InputContainer>
-        <L.Label>Preferred Job Role:</L.Label>
+        <L.Label>희망 직무:</L.Label>
         <L.Input
           type='text'
           value={job}
@@ -189,7 +189,7 @@ const Register: React.FC = () => {
       </L.InputContainer>
 
       <L.InputContainer>
-        <L.Label>Desired Tags (comma-separated):</L.Label>
+        <L.Label>희망 태그 (쉼표로 구분):</L.Label>
         <L.Input
           type='text'
           value={tags}
@@ -197,7 +197,7 @@ const Register: React.FC = () => {
         />
       </L.InputContainer>
 
-      <L.SubmitButton type='submit'>Sign Up</L.SubmitButton>
+      <L.SubmitButton type='submit'>회원가입</L.SubmitButton>
     </L.Form>
   )
 }
