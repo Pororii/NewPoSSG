@@ -199,7 +199,7 @@ const Register: React.FC = () => {
         <L.Label>복수 전공:</L.Label>
         <L.Input
           type='text'
-          value={major}
+          value={secondMajor}
           onChange={e => setSecondMajor(e.target.value)}
         />
       </L.InputContainer>
