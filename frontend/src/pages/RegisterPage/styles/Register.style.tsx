@@ -12,7 +12,7 @@ export const Form = styled.form`
 export const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 15px;
+  margin-top: 15px;
 `
 
 export const Label = styled.label`
@@ -49,6 +49,12 @@ export const SubmitButton = styled(Button)`
   width: 100%;
   font-size: 16px;
   font-weight: bold;
+`
+
+export const ErrorMessage = styled.div`
+  color: red;
+  font-size: 12px;
+  margin-top: 8px;
 `
 
 // Tag

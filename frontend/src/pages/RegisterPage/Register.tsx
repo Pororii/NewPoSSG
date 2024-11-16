@@ -19,6 +19,7 @@ const Register: React.FC = () => {
   const [semesterOff, setSemesterOff] = useState<boolean>(false)
   const [job, setJob] = useState<string>('')
   const [tags, setTags] = useState<string[]>([])
+  const [errors, setErrors] = useState<{ [key: string]: string }>({})
 
   const handleEmailVerificationSend = async () => {
     try {
@@ -46,12 +47,25 @@ const Register: React.FC = () => {
     }
   }
 
+  const validate = () => {
+    const newErrors: { [key: string]: string } = {}
+    if (!email) newErrors.email = '* 필수 항목입니다.'
+    if (!verificationCode || !isEmailVerified)
+      newErrors.verificationCode = '* 이메일 인증이 필요합니다.'
+    if (!password) newErrors.password = '* 필수 항목입니다.'
+    if (!nickname) newErrors.nickname = '* 필수 항목입니다.'
+    if (!university) newErrors.university = '* 필수 항목입니다.'
+    if (!major) newErrors.major = '* 필수 항목입니다.'
+    if (!job) newErrors.job = '* 필수 항목입니다.'
+    if (tags.length < 1) newErrors.tags = '* 최소 1개의 태그를 입력해야 합니다.'
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!isEmailVerified) {
-      alert('이메일 인증을 먼저 진행해주세요.')
-      return
-    }
+
+    if (!validate()) return
 
     const payload = {
       email,
@@ -114,6 +128,7 @@ const Register: React.FC = () => {
           onChange={e => setEmail(e.target.value)}
           required
         />
+        {errors.email && <L.ErrorMessage>{errors.email}</L.ErrorMessage>}
         <L.Button type='button' onClick={handleEmailVerificationSend}>
           인증번호 전송
         </L.Button>
@@ -126,7 +141,9 @@ const Register: React.FC = () => {
           value={verificationCode}
           onChange={e => setVerificationCode(e.target.value)}
         />
-
+        {errors.verificationCode && (
+          <L.ErrorMessage>{errors.verificationCode}</L.ErrorMessage>
+        )}
         <L.Button type='button' onClick={handleVerifyCode}>
           인증번호 확인
         </L.Button>
@@ -140,6 +157,7 @@ const Register: React.FC = () => {
           onChange={e => setPassword(e.target.value)}
           required
         />
+        {errors.password && <L.ErrorMessage>{errors.password}</L.ErrorMessage>}
       </L.InputContainer>
 
       <L.InputContainer>
@@ -150,6 +168,7 @@ const Register: React.FC = () => {
           onChange={e => setNickname(e.target.value)}
           required
         />
+        {errors.nickname && <L.ErrorMessage>{errors.nickname}</L.ErrorMessage>}
       </L.InputContainer>
 
       <L.InputContainer>
@@ -158,8 +177,11 @@ const Register: React.FC = () => {
           type='text'
           value={university}
           onChange={e => setUniversity(e.target.value)}
-          required
+          //required
         />
+        {errors.university && (
+          <L.ErrorMessage>{errors.university}</L.ErrorMessage>
+        )}
       </L.InputContainer>
 
       <L.InputContainer>
@@ -168,15 +190,16 @@ const Register: React.FC = () => {
           type='text'
           value={major}
           onChange={e => setMajor(e.target.value)}
-          required
+          //required
         />
+        {errors.major && <L.ErrorMessage>{errors.major}</L.ErrorMessage>}
       </L.InputContainer>
 
       <L.InputContainer>
-        <L.Label>복수전공 (선택):</L.Label>
+        <L.Label>복수 전공:</L.Label>
         <L.Input
           type='text'
-          value={secondMajor}
+          value={major}
           onChange={e => setSecondMajor(e.target.value)}
         />
       </L.InputContainer>
@@ -186,7 +209,7 @@ const Register: React.FC = () => {
         <L.Select
           value={period}
           onChange={e => setPeriod(convertPeriodToNumber(e.target.value))}
-          required
+          //required
         >
           <option value='1-1'>1학년 1학기</option>
           <option value='1-2'>1학년 2학기</option>
@@ -205,7 +228,7 @@ const Register: React.FC = () => {
         <L.Select
           value={semesterOff ? 'yes' : 'no'}
           onChange={e => setSemesterOff(e.target.value === 'yes')}
-          required
+          //required
         >
           <option value='no'>아니요</option>
           <option value='yes'>예</option>
@@ -218,11 +241,13 @@ const Register: React.FC = () => {
           type='text'
           value={job}
           onChange={e => setJob(e.target.value)}
-          required
+          //required
         />
+        {errors.job && <L.ErrorMessage>{errors.job}</L.ErrorMessage>}
       </L.InputContainer>
 
       <KeywordInput keywords={tags} setKeywords={setTags} />
+      {errors.tags && <L.ErrorMessage>{errors.tags}</L.ErrorMessage>}
 
       <L.SubmitButton type='submit'>회원가입</L.SubmitButton>
     </L.Form>
