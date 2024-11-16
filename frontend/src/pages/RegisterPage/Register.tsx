@@ -6,9 +6,6 @@ import { postCheckEmailNumber } from '../../api/user/postCheckEmailNumber'
 import { postCheckEmailSend } from '../../api/user/postCheckEmailSend'
 import { register } from '../../api/user/postRegister'
 
-// Define types for tags
-// type Tags = string[]
-
 const Register: React.FC = () => {
   const [email, setEmail] = useState<string>('')
   const [verificationCode, setVerificationCode] = useState<string>('')
@@ -56,7 +53,20 @@ const Register: React.FC = () => {
       return
     }
 
-    // const tagsArray: Tags = tags.split(',').map(tag => tag.trim())
+    const payload = {
+      email,
+      password,
+      nickname,
+      university,
+      major,
+      secondMajor,
+      period,
+      semesterOff,
+      job,
+      tags,
+    }
+
+    console.log('Payload for backend:', payload)
 
     try {
       const response = await register(
@@ -69,7 +79,6 @@ const Register: React.FC = () => {
         period,
         semesterOff,
         job,
-        //tagsArray,
         tags,
       )
       if (response) {
@@ -80,7 +89,6 @@ const Register: React.FC = () => {
       alert('회원가입에 실패했습니다.')
     }
   }
-
   const convertPeriodToNumber = (selectedPeriod: string): number => {
     const mapping: { [key: string]: number } = {
       '1-1': 1,
@@ -214,14 +222,6 @@ const Register: React.FC = () => {
         />
       </L.InputContainer>
 
-      {/* <L.InputContainer>
-        <L.Label>희망 태그 (쉼표로 구분):</L.Label>
-        <L.Input
-          type='text'
-          value={tags}
-          onChange={e => setTags(e.target.value)}
-        />
-      </L.InputContainer> */}
       <KeywordInput keywords={tags} setKeywords={setTags} />
 
       <L.SubmitButton type='submit'>회원가입</L.SubmitButton>
