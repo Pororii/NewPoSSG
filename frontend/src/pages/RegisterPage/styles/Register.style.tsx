@@ -50,3 +50,30 @@ export const SubmitButton = styled(Button)`
   font-size: 16px;
   font-weight: bold;
 `
+
+// Tag
+export const TagList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+`
+
+export const Tag = styled.div`
+  background-color: #007bff;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+`
+
+export const RemoveButton = styled.button`
+  margin-left: 8px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+`

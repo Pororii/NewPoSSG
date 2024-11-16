@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 
+import KeywordInput from './components/KeywordInput'
 import * as L from './styles/Register.style'
 import { postCheckEmailNumber } from '../../api/user/postCheckEmailNumber'
 import { postCheckEmailSend } from '../../api/user/postCheckEmailSend'
 import { register } from '../../api/user/postRegister'
 
 // Define types for tags
-type Tags = string[]
+// type Tags = string[]
 
 const Register: React.FC = () => {
   const [email, setEmail] = useState<string>('')
@@ -20,7 +21,7 @@ const Register: React.FC = () => {
   const [period, setPeriod] = useState<number>(1)
   const [semesterOff, setSemesterOff] = useState<boolean>(false)
   const [job, setJob] = useState<string>('')
-  const [tags, setTags] = useState<string>('')
+  const [tags, setTags] = useState<string[]>([])
 
   const handleEmailVerificationSend = async () => {
     try {
@@ -55,7 +56,7 @@ const Register: React.FC = () => {
       return
     }
 
-    const tagsArray: Tags = tags.split(',').map(tag => tag.trim())
+    // const tagsArray: Tags = tags.split(',').map(tag => tag.trim())
 
     try {
       const response = await register(
@@ -68,7 +69,8 @@ const Register: React.FC = () => {
         period,
         semesterOff,
         job,
-        tagsArray,
+        //tagsArray,
+        tags,
       )
       if (response) {
         alert('회원가입이 성공적으로 완료되었습니다!')
@@ -212,14 +214,15 @@ const Register: React.FC = () => {
         />
       </L.InputContainer>
 
-      <L.InputContainer>
+      {/* <L.InputContainer>
         <L.Label>희망 태그 (쉼표로 구분):</L.Label>
         <L.Input
           type='text'
           value={tags}
           onChange={e => setTags(e.target.value)}
         />
-      </L.InputContainer>
+      </L.InputContainer> */}
+      <KeywordInput keywords={tags} setKeywords={setTags} />
 
       <L.SubmitButton type='submit'>회원가입</L.SubmitButton>
     </L.Form>
