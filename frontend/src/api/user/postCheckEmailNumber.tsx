@@ -5,7 +5,7 @@ import { possgAxios } from '../axiosInstance'
 
 export const postCheckEmailNumber = async (
   email: string,
-  number: number,
+  number: string,
 ): Promise<AxiosResponse<SuccessResponse> | null> => {
   const response = await possgAxios.post('members/check-email-number', {
     email,
