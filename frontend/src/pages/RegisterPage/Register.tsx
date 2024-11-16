@@ -79,6 +79,21 @@ const Register: React.FC = () => {
     }
   }
 
+  const convertPeriodToNumber = (selectedPeriod: string): number => {
+    const mapping: { [key: string]: number } = {
+      '1-1': 1,
+      '1-2': 2,
+      '2-1': 3,
+      '2-2': 4,
+      '3-1': 5,
+      '3-2': 6,
+      '4-1': 7,
+      '4-2': 8,
+      기타: 9,
+    }
+    return mapping[selectedPeriod]
+  }
+
   return (
     <L.Form onSubmit={handleSubmit}>
       <L.InputContainer>
@@ -158,12 +173,21 @@ const Register: React.FC = () => {
 
       <L.InputContainer>
         <L.Label>학기:</L.Label>
-        <L.Input
-          type='number'
+        <L.Select
           value={period}
-          onChange={e => setPeriod(parseInt(e.target.value))}
+          onChange={e => setPeriod(convertPeriodToNumber(e.target.value))}
           required
-        />
+        >
+          <option value='1-1'>1학년 1학기</option>
+          <option value='1-2'>1학년 2학기</option>
+          <option value='2-1'>2학년 1학기</option>
+          <option value='2-2'>2학년 2학기</option>
+          <option value='3-1'>3학년 1학기</option>
+          <option value='3-2'>3학년 2학기</option>
+          <option value='4-1'>4학년 1학기</option>
+          <option value='4-2'>4학년 2학기</option>
+          <option value='기타'>기타</option>
+        </L.Select>
       </L.InputContainer>
 
       <L.InputContainer>
