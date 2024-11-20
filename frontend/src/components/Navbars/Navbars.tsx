@@ -84,7 +84,10 @@ const Navbars: React.FC = () => {
           <span>PoSSG</span>
         </Brand>
         <NavbarLink active={activeLink === '/'}>
-          <a href='/'>프로젝트</a>
+          <a href='/'>로드맵</a>
+        </NavbarLink>
+        <NavbarLink active={activeLink === '/project'}>
+          <a href='/project'>프로젝트</a>
         </NavbarLink>
         <NavbarLink active={activeLink === '/portfolio'}>
           <a href='/portfolio'>포트폴리오</a>
